@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<wxs module="utils" src="../../utils/util.wxs"></wxs>
+<view class="body bg">
+  <view class="container">
+    <view class="home-container">
+      <view class="home-img">
+        <image mode="aspectFill" src="{{todayInfo.img_url_480}}" alt="" />
+      </view>
+      <view class="home-mask" bindtap='handleClickPreviewImage' data-imgInfo="{{todayInfo}}" data-current="{{todayInfo.img_url_480}}" bindlongpress="handleLongTouch">
+        <view class="home-content">
+          <text class="padder block">{{todayInfo.day}}</text>
+          <text class="padder block m-b-sm home-content-title">{{todayInfo.date}}</text>
+          <text class="padder block m-b-lg home-content-title">{{todayInfo.img_title}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="img-list">
+      <view class="img-items" bindtap='handleClickPreviewImage' data-imgInfo="{{item}}" data-current="{{item.img_url_480}}" bindlongpress="handleLongTouch" wx:for="{{utils.getImgList(imgList)}}" wx:key="index">
+        <form report-submit="true" bindsubmit="postFormId">
+          <button form-type='submit'>
+            <text class="text-center img-date block">{{item.img_date}}</text>
+            <view class="img">
+              <image mode="aspectFill" src="{{item.img_url_480}}" alt="" />
+            </view>
+            <text class="wrapper block">{{item.img_title}}</text>
+          </button>
+        </form>
+      </view>
+    </view>
+  </view>
+  <form report-submit="true" bindsubmit="postFormId">
+    <button form-type='submit'>
+      <van-action-sheet show="{{ show }}" actions="{{ actions }}" bind:select="onSelect" bind:cancel="handleLongTouch" cancel-text="取消" overlay="{{true}}" close-on-click-overlay />
+    </button>
+  </form>
+  <loading wx:if="{{loading}}" />
+  <van-toast id="van-toast" />
+  <van-dialog id="van-dialog" />
+  <canvas canvas-id='myCanvas' style="width: 375px;height:500px;left: 10000rpx;position: fixed;"></canvas>
+  <end wx:if="{{isEnd}}" />
+</view>

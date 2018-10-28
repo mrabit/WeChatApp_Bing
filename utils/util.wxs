@@ -1,0 +1,7 @@
+module.exports = {
+  getImgList: function(list) {
+    list = list || [];
+    if (list.length <= 1) return [];
+    return list.slice(1, list.length);
+  }
+};
